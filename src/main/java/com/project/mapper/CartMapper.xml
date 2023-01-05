@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.project.mapper.CartMapper">  
+
+ 	<!-- 장바구니 추가 -->
+	<insert id="addCart">
+		insert into cart(pNo, prodCount)
+		values(#{pNo}, #{prodCount})
+		<!-- values(#{memNo}, #{pNo}, #{prodCount}) -->
+	</insert>
+	
+	<!-- 장바구니 확인 -->
+	<select id="checkCart" resultType="CartDTO">
+		select * from cart 
+		where pNo = #{pNo}
+		<!-- where memNo = #{memNo} and pNo = #{pNo} -->
+	</select>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.ProductMapper">
+  
+    <select id="productList" resultType="productDTO">
+    	SELECT * FROM product ORDER BY pCompany, pName;
+    </select>
+    
+    <select id="productInfo" parameterType="Integer" resultType="productDTO">
+    	SELECT * FROM product WHERE pNo = #{pNo}
+    </select>
+    
+    <select id="getProductBySpec" parameterType="String" resultType="productDTO">
+    	SELECT * FROM product WHERE pSpec = #{pSpec}
+    </select>
+    
+    <select id="productView" parameterType="Integer" resultType="productDTO">
+    	SELECT * FROM product WHERE pNo = #{pNo}
+    </select>
+        
+    <insert id="productInsert">
+    	INSERT INTO product (pCategory_fk, pName, pCompany, pImage_1, pImage_2, pQty, price, pSpec, pContent) 
+    	VALUES (#{pCategory_fk},
+    		    #{pName},
+    		    #{pCompany},
+    		    #{pImage_1},
+    		    #{pImage_2},
+    		    #{pQty},
+    		    #{price},
+    		    #{pSpec},
+    		    #{pContent})
+    </insert>
+    
+    <update id="productUpdate">
+    	UPDATE product SET pCategory_fk = #{pCategory_fk}, pName = #{pName}, pCompany = #{pCompany}, 
+    	pImage_1 = #{pImage_1}, pImage_2 = #{pImage_2}, 
+    	pQty = #{pQty}, price = #{price}, pSpec = #{pSpec}, pContent = #{pContent}
+    </update>
+    
+    <delete id="productDelete" parameterType="Integer">
+    	DELETE FROM product WHERE pNo = #{pNo}
+    </delete>
+   
+</mapper>
