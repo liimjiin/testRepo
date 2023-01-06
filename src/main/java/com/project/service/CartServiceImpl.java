@@ -29,9 +29,13 @@ public class CartServiceImpl implements CartService {
 		try {
 			// 장바구니 추가 시 1반환
 			System.out.println("1번 : 장바구니 추가 완료");
+//			int result = cartMapper.addCart(cDto);
+//			System.out.println("result : "+result);
 			return cartMapper.addCart(cDto);
+			
 		}catch(Exception e) {
 			// 장바구니 추가 실패 시 0반환
+			System.out.println("0번 : 장바구니 추가 실패");
 			return 0;
 		}
 		

@@ -32,6 +32,7 @@ public class CartController {
 	@RequestMapping("cartAdd")
 	public String cartAdd(CartDTO cDto) {
 		
+		System.out.println(cDto.getProdCount());
 		int result = cartService.addCart(cDto);
 		
 		return result + "";

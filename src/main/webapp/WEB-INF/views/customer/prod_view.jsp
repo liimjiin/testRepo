@@ -22,9 +22,14 @@
 						<!-- 수량 수정 -->
 						<div style="position: relative; width: 90px; display: flex; border:1px; border-color: gray; border-style: solid; box-sizing: border-box;">
 							<input type='button' onclick='count("plus")' value='+' style='width: 30px; background: white; border: 1px solid #bbb; border-radius: 0px; padding: 5px 7px; border: none;'/>
-							<div id='prodCount' class="prodCount" style='background: white; text-align:center; display:block; width: 30px; right: 12px; margin: 0; padding: 5px 7px;'>1</div>
+							<input type="text" id="qty" name="prodCount" value="1" style='border:none; background: white; text-align:center; display:block; width: 30px; right: 12px; margin: 0; padding: 5px 7px;'/>
+							<!-- <div id='qty' class="quantity_input" 
+							style='background: white; text-align:center; display:block; width: 30px; right: 12px; margin: 0; padding: 5px 7px;'>
+							1
+							</div> -->
 							<input type='button' onclick='count("minus")' value='-' style='width: 30px; background: white; border: 1px solid #bbb; border-radius: 0px; padding: 5px 7px; border: none;'/>
-						</div> 
+						</div>
+						
 					</div>
 					<div class="d-flex mt-3">
 						<!-- 로그인 사용자만 장바구니 담기 허용 -->
@@ -73,14 +78,19 @@
 	</section>
 </main>
 <script>
-	 function goCart(pNo){
+  	function goCart(pNo){
 		document.prodForm.action="cartAdd?pNo="+pNo;
 		document.prodForm.submit();
-		cartAlert(result);
- 		
-	}
-
-	/*  function cartAlert(result){
+		if(result == '0'){
+			alert("장바구니에 추가하지 못했습니다.");
+		}else if(result == '1'){
+			alert("장바구니에 추가되었습니다.");	
+		}else if(result == '2'){
+			alert("장바구니에 동일한 상품이 있습니다.");
+ 		}
+	} 
+	
+	/* function cartAlert(result){
 		 if(result == '0'){
 				alert("장바구니에 추가하지 못했습니다.");
 			}else if(result == '1'){
@@ -89,37 +99,15 @@
 				alert("장바구니에 동일한 상품이 있습니다.");
 	 		}
 	} */
-
-	/* const form = {
-		    memNo : '${member.memNo}' 
-			pNo : '${product.pNo}'
-			prodCount : '1'
-	}*/
-			
-/* 	$(".btn-outline-success").on("click",function(e){
-			form.prodCount = $(".quantity_input").val();
-			$.ajax({
-				url: 'cartAdd',
-				type: 'POST',
-				data: form,
-				success: function(result){
-					cartAlert(result);
-				} 
-			 }) 
-		});
-	 */
 	
-	function showMsg(){
-		alert("로그인이 필요합니다.")
-	}
-	
-	// 수량
 	function count(type)  {
 		  // 결과를 표시할 element
-		  const resultElement = document.getElementById('prodCount');
+		  const resultElement = document.getElementById('qty');
 		  
 		  // 현재 화면에 표시된 값
-		  let number = resultElement.innerText;
+//		  let number = resultElement.innerText;
+		  let number = resultElement.value;
+		  console.log(number);
 		  
 		  // 더하기/빼기
 		  if(type === 'plus') {
@@ -129,19 +117,14 @@
 		  }
 		  
 		  // 결과 출력
-		  resultElement.innerText = number;
-		  
-		  $(".btn-outline-success").on("click",function(e){
-				form.prodCount = $(".prodCount").innerText;
-				$.ajax({
-					url: 'cartAdd',
-					type: 'POST',
-					data: form,
-					success: function(result){
-						cartAlert(result);
-					} 
-				 }) 
-			});
+//		  resultElement.innerText = number;
+		  resultElement.value= number;
 		}
+	
+ 	
+	
+	 
+	// 수량
+	
 </script>
 <%@ include file="../inc/footer.jsp" %>
